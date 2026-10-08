@@ -4,7 +4,8 @@ import com.tophantu.inventory.shared.error.ErrorCode;
 
 public enum ProductErrorCode implements ErrorCode {
     PRODUCT_NOT_FOUND("PRODUCT_001", "Product not found"),
-    SKU_ALREADY_EXISTS("PRODUCT_002", "SKU already exists");
+    SKU_ALREADY_EXISTS("PRODUCT_002", "SKU already exists"),
+    INVENTORY_NOT_FOUND("PRODUCT_003", "Inventory not found for product");
 
     private final String code;
     private final String message;
