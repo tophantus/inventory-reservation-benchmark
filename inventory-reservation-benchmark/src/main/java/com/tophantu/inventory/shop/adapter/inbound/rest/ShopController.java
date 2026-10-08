@@ -42,8 +42,8 @@ public class ShopController {
     }
 
     @GetMapping("/{shopId}")
-    public ApiResponse<ShopQueryResult> getShopById(@PathVariable Long shopId) {
+    public ResponseEntity<ApiResponse<ShopQueryResult>> getShopById(@PathVariable Long shopId) {
         ShopQueryResult result = getShopByIdUseCase.getShopById(new GetShopByIdQuery(shopId));
-        return ApiResponse.success(result);
+        return ResponseEntity.ok(ApiResponse.success(result));
     }
 }
