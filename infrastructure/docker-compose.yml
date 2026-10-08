@@ -101,6 +101,22 @@ services:
       retries: 10
       start_period: 10s
 
+  pgadmin:
+    image: dpage/pgadmin4:9.13
+    env_file:
+      - ../.env
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   grafana:
     image: grafana/grafana:12.4.0
     env_file:
@@ -158,3 +174,4 @@ volumes:
   redis_data:
   prometheus_data:
   grafana_data:
+  pgadmin_data:
