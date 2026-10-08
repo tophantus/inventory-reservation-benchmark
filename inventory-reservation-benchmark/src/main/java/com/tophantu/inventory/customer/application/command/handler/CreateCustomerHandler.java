@@ -5,7 +5,9 @@ import com.tophantu.inventory.customer.application.command.dto.CreateCustomerRes
 import com.tophantu.inventory.customer.application.command.port.inbound.CreateCustomerUseCase;
 import com.tophantu.inventory.customer.application.command.port.outbound.CreateCustomerPort;
 import com.tophantu.inventory.customer.domain.model.Customer;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreateCustomerHandler implements CreateCustomerUseCase {
 
     private final CreateCustomerPort createCustomerPort;
