@@ -11,3 +11,9 @@ docker compose --env-file .env -f infrastructure/docker-compose.yml up --build
 ```
 
 The backend is available at `http://localhost:8080`; its health and Prometheus endpoints are `/actuator/health` and `/actuator/prometheus`. Prometheus is available at `http://localhost:9090` and Grafana at `http://localhost:3000`.
+
+Run the reservation benchmark on demand after starting the stack:
+
+```bash
+docker compose -f infrastructure/docker-compose.yml run --rm k6
+```

@@ -142,6 +142,17 @@ services:
       retries: 10
       start_period: 5s
 
+  k6:
+    image: grafana/k6:1.7.0
+    profiles: ["benchmark"]
+    restart: "no"
+    command: run /scripts/reservation.js
+    volumes:
+      - ../benchmark/k6:/scripts:ro
+    depends_on:
+      inventory-reservation-benchmark:
+        condition: service_healthy
+
 volumes:
   postgres_data:
   redis_data:
