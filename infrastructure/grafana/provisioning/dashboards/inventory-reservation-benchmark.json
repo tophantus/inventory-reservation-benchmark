@@ -1,0 +1,19 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "panels": [
+    {"datasource":{"uid":"prometheus"},"fieldConfig":{"defaults":{"unit":"reqps"},"overrides":[]},"gridPos":{"h":8,"w":8,"x":0,"y":0},"id":1,"targets":[{"expr":"sum(rate(http_server_requests_seconds_count[5m]))","legendFormat":"requests/s","refId":"A"}],"title":"HTTP request rate","type":"timeseries"},
+    {"datasource":{"uid":"prometheus"},"fieldConfig":{"defaults":{"unit":"s"},"overrides":[]},"gridPos":{"h":8,"w":8,"x":8,"y":0},"id":2,"targets":[{"expr":"histogram_quantile(0.95, sum by (le) (rate(http_server_requests_seconds_bucket[5m])))","legendFormat":"p95","refId":"A"}],"title":"HTTP latency (p95)","type":"timeseries"},
+    {"datasource":{"uid":"prometheus"},"fieldConfig":{"defaults":{"unit":"reqps"},"overrides":[]},"gridPos":{"h":8,"w":8,"x":16,"y":0},"id":3,"targets":[{"expr":"sum(rate(http_server_requests_seconds_count{status=~\"5..\"}[5m]))","legendFormat":"5xx errors/s","refId":"A"}],"title":"HTTP errors","type":"timeseries"},
+    {"datasource":{"uid":"prometheus"},"fieldConfig":{"defaults":{"unit":"bytes"},"overrides":[]},"gridPos":{"h":8,"w":8,"x":0,"y":8},"id":4,"targets":[{"expr":"sum(jvm_memory_used_bytes{area=\"heap\"})","legendFormat":"heap used","refId":"A"}],"title":"JVM heap memory","type":"timeseries"},
+    {"datasource":{"uid":"prometheus"},"fieldConfig":{"defaults":{"unit":"percentunit"},"overrides":[]},"gridPos":{"h":8,"w":8,"x":8,"y":8},"id":5,"targets":[{"expr":"process_cpu_usage","legendFormat":"process CPU","refId":"A"}],"title":"CPU usage","type":"timeseries"},
+    {"datasource":{"uid":"prometheus"},"fieldConfig":{"defaults":{"unit":"short"},"overrides":[]},"gridPos":{"h":8,"w":8,"x":16,"y":8},"id":6,"targets":[{"expr":"sum(http_server_requests_active_seconds_gcount)","legendFormat":"active requests","refId":"A"}],"title":"Active requests","type":"timeseries"}
+  ],
+  "schemaVersion": 41,
+  "tags": ["inventory", "reservations"],
+  "templating": {"list": []},
+  "time": {"from":"now-15m","to":"now"},
+  "title": "Inventory Reservation Benchmark",
+  "uid": "inventory-reservation-benchmark",
+  "version": 2
+}
