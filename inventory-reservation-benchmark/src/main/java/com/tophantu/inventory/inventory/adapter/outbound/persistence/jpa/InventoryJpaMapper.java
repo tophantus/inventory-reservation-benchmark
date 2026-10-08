@@ -13,6 +13,7 @@ public final class InventoryJpaMapper {
                 entity.getProductId(),
                 entity.getQuantity(),
                 entity.getReservedQuantity(),
+                entity.getAvailableQuantity(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
         );
@@ -24,6 +25,7 @@ public final class InventoryJpaMapper {
                 inventory.productId(),
                 inventory.quantity(),
                 inventory.reservedQuantity(),
+                inventory.availableQuantity(),
                 inventory.createdAt(),
                 inventory.updatedAt()
         );

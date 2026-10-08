@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/changes/reservation/005-create-reservation.yaml
   - include:
       file: db/changelog/changes/inventory/006-create-inventory-unit.yaml
+  - include:
+      file: db/changelog/changes/inventory/007-add-available-quantity-to-inventory.yaml

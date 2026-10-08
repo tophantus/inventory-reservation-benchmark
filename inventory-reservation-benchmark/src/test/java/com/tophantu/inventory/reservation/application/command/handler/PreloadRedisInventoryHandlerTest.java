@@ -15,7 +15,7 @@ class PreloadRedisInventoryHandlerTest {
     @Test
     void preloadsTheAvailableQuantityFromPostgresInventory() {
         FindInventoryByProductIdUseCase findInventory = query -> Optional.of(
-                new InventoryQueryResult(10L, query.productId(), 20L, 7L, null, null)
+                new InventoryQueryResult(10L, query.productId(), 20L, 7L, 13L, null, null)
         );
         RecordingPreloadPort preloadPort = new RecordingPreloadPort();
         PreloadRedisInventoryHandler handler = new PreloadRedisInventoryHandler(findInventory, preloadPort);

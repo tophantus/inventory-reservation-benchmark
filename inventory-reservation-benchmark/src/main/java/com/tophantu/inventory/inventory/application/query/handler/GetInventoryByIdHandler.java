@@ -28,6 +28,7 @@ public class GetInventoryByIdHandler implements GetInventoryByIdUseCase {
                 inventory.productId(),
                 inventory.quantity(),
                 inventory.reservedQuantity(),
+                inventory.availableQuantity(),
                 inventory.createdAt(),
                 inventory.updatedAt()
         );

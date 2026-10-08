@@ -10,6 +10,7 @@ public record Inventory(
         Long productId,
         long quantity,
         long reservedQuantity,
+        long availableQuantity,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
@@ -23,6 +24,9 @@ public record Inventory(
         }
         if (reservedQuantity > quantity) {
             throw new BusinessException(InventoryErrorCode.RESERVED_QUANTITY_EXCEEDS_QUANTITY);
+        }
+        if (availableQuantity < 0) {
+            throw new BusinessException(InventoryErrorCode.NEGATIVE_AVAILABLE_QUANTITY);
         }
     }
 }

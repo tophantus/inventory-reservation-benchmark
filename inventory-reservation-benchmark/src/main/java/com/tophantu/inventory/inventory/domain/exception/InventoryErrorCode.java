@@ -7,7 +7,8 @@ public enum InventoryErrorCode implements ErrorCode {
     NEGATIVE_QUANTITY("INVENTORY_002", "Quantity must not be negative"),
     NEGATIVE_RESERVED_QUANTITY("INVENTORY_003", "Reserved quantity must not be negative"),
     RESERVED_QUANTITY_EXCEEDS_QUANTITY("INVENTORY_004", "Reserved quantity must not exceed quantity"),
-    INSUFFICIENT_AVAILABLE_QUANTITY("INVENTORY_005", "Insufficient available quantity");
+    INSUFFICIENT_AVAILABLE_QUANTITY("INVENTORY_005", "Insufficient available quantity"),
+    NEGATIVE_AVAILABLE_QUANTITY("INVENTORY_006", "Available quantity must not be negative");
 
     private final String code;
     private final String message;

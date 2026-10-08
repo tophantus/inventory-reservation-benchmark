@@ -32,7 +32,7 @@ class AddInventoryUnitsHandlerTest {
 
         @Override
         public Optional<Inventory> findById(Long inventoryId) {
-            return Optional.of(new Inventory(inventoryId, 1L, 0L, 0L, null, null));
+            return Optional.of(new Inventory(inventoryId, 1L, 0L, 0L, 0L, null, null));
         }
 
         @Override

@@ -27,6 +27,7 @@ public class FindInventoryByProductIdHandler implements FindInventoryByProductId
     private InventoryQueryResult toQueryResult(Inventory inventory) {
         return new InventoryQueryResult(
                 inventory.id(), inventory.productId(), inventory.quantity(), inventory.reservedQuantity(),
+                inventory.availableQuantity(),
                 inventory.createdAt(), inventory.updatedAt()
         );
     }

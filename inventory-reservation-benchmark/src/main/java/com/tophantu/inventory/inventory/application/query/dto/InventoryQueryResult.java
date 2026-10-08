@@ -7,6 +7,7 @@ public record InventoryQueryResult(
         Long productId,
         long quantity,
         long reservedQuantity,
+        long availableQuantity,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {

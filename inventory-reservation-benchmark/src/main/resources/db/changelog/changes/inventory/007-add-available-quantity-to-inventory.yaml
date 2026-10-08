@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-add-available-quantity-to-inventory
+      author: inventory-reservation-benchmark
+      changes:
+        - addColumn:
+            tableName: inventory
+            columns:
+              - column:
+                  name: available_quantity
+                  type: BIGINT
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+        - sql:
+            dbms: postgresql
+            sql: UPDATE inventory SET available_quantity = quantity - reserved_quantity
+        - sql:
+            dbms: postgresql
+            sql: ALTER TABLE inventory ADD CONSTRAINT ck_inventory_available_quantity_non_negative CHECK (available_quantity >= 0)
