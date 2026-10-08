@@ -10,9 +10,12 @@ import com.tophantu.inventory.reservation.domain.model.Reservation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 
 @Service
 public class CreateReservationHandler implements CreateReservationUseCase {
+
+    private static final long RESERVATION_HOLD_MINUTES = 15;
 
     private final CreateReservationPort createReservationPort;
     private final ReserveInventoryPort reserveInventoryPort;
@@ -28,7 +31,8 @@ public class CreateReservationHandler implements CreateReservationUseCase {
     @Override
     @Transactional
     public CreateReservationResult createReservation(CreateReservationCommand command) {
-        reserveInventoryPort.reserve(command.productId(), command.quantity(), command.expiresAt(), command.strategy());
+        LocalDateTime expiresAt = LocalDateTime.now().plusMinutes(RESERVATION_HOLD_MINUTES);
+        reserveInventoryPort.reserve(command.productId(), command.quantity(), expiresAt, command.strategy());
 
         Reservation reservation = createReservationPort.save(
                 new Reservation(
@@ -37,7 +41,7 @@ public class CreateReservationHandler implements CreateReservationUseCase {
                         command.productId(),
                         command.quantity(),
                         ReservationStatus.HELD,
-                        command.expiresAt(),
+                        expiresAt,
                         null,
                         null
                 )

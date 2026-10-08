@@ -3,6 +3,7 @@ package com.tophantu.inventory.reservation.adapter.inbound.rest;
 import com.tophantu.inventory.reservation.application.command.dto.CreateReservationCommand;
 import com.tophantu.inventory.reservation.application.command.dto.CreateReservationResult;
 import com.tophantu.inventory.reservation.application.command.dto.PreloadRedisInventoryCommand;
+import com.tophantu.inventory.reservation.adapter.inbound.rest.request.CreateReservationRequest;
 import com.tophantu.inventory.reservation.application.command.port.inbound.CreateReservationUseCase;
 import com.tophantu.inventory.reservation.application.command.port.inbound.PreloadRedisInventoryUseCase;
 import com.tophantu.inventory.reservation.application.query.dto.GetReservationByIdQuery;
@@ -42,9 +43,11 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<CreateReservationResult>> createReservation(
-            @Valid @RequestBody CreateReservationCommand command
+            @Valid @RequestBody CreateReservationRequest request
     ) {
-        CreateReservationResult result = createReservationUseCase.createReservation(command);
+        CreateReservationResult result = createReservationUseCase.createReservation(new CreateReservationCommand(
+                request.customerId(), request.productId(), request.quantity(), request.strategy()
+        ));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.success(result));
