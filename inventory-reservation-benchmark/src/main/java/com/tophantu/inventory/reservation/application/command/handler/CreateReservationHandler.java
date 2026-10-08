@@ -28,7 +28,7 @@ public class CreateReservationHandler implements CreateReservationUseCase {
     @Override
     @Transactional
     public CreateReservationResult createReservation(CreateReservationCommand command) {
-        reserveInventoryPort.reserve(command.productId(), command.quantity(), command.strategy());
+        reserveInventoryPort.reserve(command.productId(), command.quantity(), command.expiresAt(), command.strategy());
 
         Reservation reservation = createReservationPort.save(
                 new Reservation(

@@ -7,6 +7,7 @@ import com.tophantu.inventory.reservation.domain.exception.ReservationErrorCode;
 import com.tophantu.inventory.shared.error.BusinessException;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -19,11 +20,11 @@ public class ReservationStrategyReserveInventoryRouter implements ReserveInvento
     }
 
     @Override
-    public void reserve(Long productId, long quantity, ReservationStrategy strategy) {
+    public void reserve(Long productId, long quantity, LocalDateTime expiresAt, ReservationStrategy strategy) {
         reserveInventoryStrategies.stream()
                 .filter(reserveInventoryStrategy -> reserveInventoryStrategy.strategy() == strategy)
                 .findFirst()
                 .orElseThrow(() -> new BusinessException(ReservationErrorCode.UNSUPPORTED_STRATEGY))
-                .reserve(productId, quantity);
+                .reserve(productId, quantity, expiresAt);
     }
 }

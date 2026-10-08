@@ -11,6 +11,8 @@ import com.tophantu.inventory.reservation.domain.exception.ReservationErrorCode;
 import com.tophantu.inventory.shared.error.BusinessException;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class PostgresPessimisticReserveInventoryAdapter implements ReserveInventoryStrategy {
 
@@ -31,7 +33,7 @@ public class PostgresPessimisticReserveInventoryAdapter implements ReserveInvent
     }
 
     @Override
-    public void reserve(Long productId, long quantity) {
+    public void reserve(Long productId, long quantity, LocalDateTime expiresAt) {
         checkProductExistsUseCase.checkProductExists(new CheckProductExistsQuery(productId));
         try {
             reserveInventoryWithPessimisticLockUseCase.reserveInventory(
