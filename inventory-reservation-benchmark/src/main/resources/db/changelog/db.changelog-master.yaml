@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/changes/product/003-create-product.yaml
   - include:
       file: db/changelog/changes/inventory/004-create-inventory.yaml
+  - include:
+      file: db/changelog/changes/reservation/005-create-reservation.yaml
