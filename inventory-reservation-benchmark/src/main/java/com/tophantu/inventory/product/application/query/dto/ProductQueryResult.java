@@ -9,6 +9,9 @@ public record ProductQueryResult(
         String name,
         String sku,
         BigDecimal price,
+        long quantity,
+        long reservedQuantity,
+        long availableQuantity,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {

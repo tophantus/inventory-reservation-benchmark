@@ -5,27 +5,27 @@ import com.tophantu.inventory.inventory.application.command.dto.CreateInventoryR
 import com.tophantu.inventory.inventory.application.command.port.inbound.CreateInventoryUseCase;
 import com.tophantu.inventory.inventory.application.command.port.outbound.CreateInventoryPort;
 import com.tophantu.inventory.inventory.domain.model.Inventory;
-import com.tophantu.inventory.product.application.query.dto.GetProductByIdQuery;
-import com.tophantu.inventory.product.application.query.port.inbound.GetProductByIdUseCase;
+import com.tophantu.inventory.product.application.query.dto.CheckProductExistsQuery;
+import com.tophantu.inventory.product.application.query.port.inbound.CheckProductExistsUseCase;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CreateInventoryHandler implements CreateInventoryUseCase {
 
     private final CreateInventoryPort createInventoryPort;
-    private final GetProductByIdUseCase getProductByIdUseCase;
+    private final CheckProductExistsUseCase checkProductExistsUseCase;
 
     public CreateInventoryHandler(
             CreateInventoryPort createInventoryPort,
-            GetProductByIdUseCase getProductByIdUseCase
+            CheckProductExistsUseCase checkProductExistsUseCase
     ) {
         this.createInventoryPort = createInventoryPort;
-        this.getProductByIdUseCase = getProductByIdUseCase;
+        this.checkProductExistsUseCase = checkProductExistsUseCase;
     }
 
     @Override
     public CreateInventoryResult createInventory(CreateInventoryCommand command) {
-        getProductByIdUseCase.getProductById(new GetProductByIdQuery(command.productId()));
+        checkProductExistsUseCase.checkProductExists(new CheckProductExistsQuery(command.productId()));
 
         Inventory inventory = createInventoryPort.save(new Inventory(
                 null,

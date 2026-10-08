@@ -26,4 +26,10 @@ public class InventoryRepositoryAdapter implements CreateInventoryPort, FindInve
         return inventoryJpaRepository.findById(inventoryId)
                 .map(InventoryJpaMapper::toDomain);
     }
+
+    @Override
+    public Optional<Inventory> findByProductId(Long productId) {
+        return inventoryJpaRepository.findByProductId(productId)
+                .map(InventoryJpaMapper::toDomain);
+    }
 }

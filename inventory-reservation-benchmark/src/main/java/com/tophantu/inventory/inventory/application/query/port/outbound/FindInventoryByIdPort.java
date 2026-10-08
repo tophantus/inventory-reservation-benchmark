@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface FindInventoryByIdPort {
 
     Optional<Inventory> findById(Long inventoryId);
+
+    Optional<Inventory> findByProductId(Long productId);
 }
