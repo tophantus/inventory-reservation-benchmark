@@ -28,6 +28,9 @@ public class InventoryJpaEntity {
     @Column(name = "reserved_quantity", nullable = false)
     private Long reservedQuantity;
 
+    @Column(name = "available_quantity", nullable = false)
+    private Long availableQuantity;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -42,6 +45,7 @@ public class InventoryJpaEntity {
             Long productId,
             Long quantity,
             Long reservedQuantity,
+            Long availableQuantity,
             LocalDateTime createdAt,
             LocalDateTime updatedAt
     ) {
@@ -49,6 +53,7 @@ public class InventoryJpaEntity {
         this.productId = productId;
         this.quantity = quantity;
         this.reservedQuantity = reservedQuantity;
+        this.availableQuantity = availableQuantity;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -83,6 +88,14 @@ public class InventoryJpaEntity {
 
     public Long getReservedQuantity() {
         return reservedQuantity;
+    }
+
+    public Long getAvailableQuantity() {
+        return availableQuantity;
+    }
+
+    public void increaseReservedQuantity(long quantity) {
+        reservedQuantity += quantity;
     }
 
     public LocalDateTime getCreatedAt() {

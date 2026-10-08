@@ -38,6 +38,8 @@ public class InventoryApplicationAdapter implements CreateProductInventoryPort, 
     }
 
     private ProductInventoryQueryResult toProductInventoryQueryResult(InventoryQueryResult inventory) {
-        return new ProductInventoryQueryResult(inventory.quantity(), inventory.reservedQuantity());
+        return new ProductInventoryQueryResult(
+                inventory.quantity(), inventory.reservedQuantity(), inventory.availableQuantity()
+        );
     }
 }

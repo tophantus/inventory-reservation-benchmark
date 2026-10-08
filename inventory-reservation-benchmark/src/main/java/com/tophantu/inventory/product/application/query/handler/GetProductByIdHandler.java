@@ -40,7 +40,7 @@ public class GetProductByIdHandler implements GetProductByIdUseCase {
                 product.price(),
                 inventory.quantity(),
                 inventory.reservedQuantity(),
-                inventory.quantity() - inventory.reservedQuantity(),
+                inventory.availableQuantity(),
                 product.createdAt(),
                 product.updatedAt()
         );

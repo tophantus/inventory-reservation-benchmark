@@ -32,6 +32,7 @@ public class CreateInventoryHandler implements CreateInventoryUseCase {
                 command.productId(),
                 command.quantity(),
                 command.reservedQuantity(),
+                command.quantity(),
                 null,
                 null
         ));
