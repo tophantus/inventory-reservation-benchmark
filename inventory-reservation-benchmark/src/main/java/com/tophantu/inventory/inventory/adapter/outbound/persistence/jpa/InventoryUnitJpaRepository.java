@@ -12,4 +12,16 @@ public interface InventoryUnitJpaRepository extends JpaRepository<InventoryUnitJ
     @Modifying
     @Query("delete from InventoryUnitJpaEntity inventoryUnit where inventoryUnit.id in :unitIds")
     void deleteByIdIn(@Param("unitIds") List<Long> unitIds);
+
+    @Query(value = """
+            select id
+            from inventory_unit
+            where inventory_id = :inventoryId
+            order by id
+            limit :quantity
+            for update skip locked
+            """, nativeQuery = true)
+    List<Long> findIdsForUpdateSkipLocked(@Param("inventoryId") Long inventoryId, @Param("quantity") long quantity);
+
+    long countByInventoryId(Long inventoryId);
 }

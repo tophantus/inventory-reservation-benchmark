@@ -114,4 +114,8 @@ public class ReservationJpaEntity {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    public void expire() {
+        status = ReservationStatus.EXPIRED;
+    }
 }
