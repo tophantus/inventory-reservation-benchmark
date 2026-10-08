@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/changes/customer/001-create-customer.yaml
   - include:
       file: db/changelog/changes/shop/002-create-shop.yaml
+  - include:
+      file: db/changelog/changes/product/003-create-product.yaml
