@@ -6,13 +6,13 @@ import com.tophantu.inventory.inventory.domain.exception.InventoryErrorCode;
 import com.tophantu.inventory.product.application.query.dto.CheckProductExistsQuery;
 import com.tophantu.inventory.product.application.query.port.inbound.CheckProductExistsUseCase;
 import com.tophantu.inventory.reservation.application.command.dto.ReservationStrategy;
-import com.tophantu.inventory.reservation.application.command.port.outbound.ReserveInventoryPort;
+import com.tophantu.inventory.reservation.application.command.port.outbound.ReserveInventoryStrategy;
 import com.tophantu.inventory.reservation.domain.exception.ReservationErrorCode;
 import com.tophantu.inventory.shared.error.BusinessException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PostgresPessimisticReserveInventoryAdapter implements ReserveInventoryPort {
+public class PostgresPessimisticReserveInventoryAdapter implements ReserveInventoryStrategy {
 
     private final CheckProductExistsUseCase checkProductExistsUseCase;
     private final ReserveInventoryWithPessimisticLockUseCase reserveInventoryWithPessimisticLockUseCase;
@@ -26,11 +26,12 @@ public class PostgresPessimisticReserveInventoryAdapter implements ReserveInvent
     }
 
     @Override
-    public void reserve(Long productId, long quantity, ReservationStrategy strategy) {
-        if (strategy != ReservationStrategy.POSTGRES_PESSIMISTIC) {
-            throw new BusinessException(ReservationErrorCode.UNSUPPORTED_STRATEGY);
-        }
+    public ReservationStrategy strategy() {
+        return ReservationStrategy.POSTGRES_PESSIMISTIC;
+    }
 
+    @Override
+    public void reserve(Long productId, long quantity) {
         checkProductExistsUseCase.checkProductExists(new CheckProductExistsQuery(productId));
         try {
             reserveInventoryWithPessimisticLockUseCase.reserveInventory(
