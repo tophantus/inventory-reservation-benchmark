@@ -1,0 +1,39 @@
+pg_lock_wait:
+  query: |
+    SELECT current_database() AS datname,
+           count(*) FILTER (WHERE wait_event_type = 'Lock') AS blocked_backends,
+           COALESCE(
+             EXTRACT(EPOCH FROM max(clock_timestamp() - query_start)
+               FILTER (WHERE wait_event_type = 'Lock')),
+             0
+           ) AS max_wait_seconds
+    FROM pg_stat_activity
+    WHERE datname = current_database()
+  metrics:
+    - datname:
+        usage: "LABEL"
+        description: "Database name"
+    - blocked_backends:
+        usage: "GAUGE"
+        description: "Backends waiting for a PostgreSQL lock"
+    - max_wait_seconds:
+        usage: "GAUGE"
+        description: "Longest current PostgreSQL lock wait"
+
+pg_active_query:
+  query: |
+    SELECT current_database() AS datname,
+           COALESCE(
+             EXTRACT(EPOCH FROM max(clock_timestamp() - query_start)
+               FILTER (WHERE state = 'active' AND pid <> pg_backend_pid())),
+             0
+           ) AS max_seconds
+    FROM pg_stat_activity
+    WHERE datname = current_database()
+  metrics:
+    - datname:
+        usage: "LABEL"
+        description: "Database name"
+    - max_seconds:
+        usage: "GAUGE"
+        description: "Longest currently active query duration"
