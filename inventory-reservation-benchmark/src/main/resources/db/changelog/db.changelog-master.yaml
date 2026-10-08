@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/changes/shop/002-create-shop.yaml
   - include:
       file: db/changelog/changes/product/003-create-product.yaml
+  - include:
+      file: db/changelog/changes/inventory/004-create-inventory.yaml

@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-inventory
+      author: inventory-reservation-benchmark
+      changes:
+        - createTable:
+            tableName: inventory
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_inventory
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reserved_quantity
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: inventory
+            baseColumnNames: product_id
+            constraintName: fk_inventory_product
+            referencedTableName: product
+            referencedColumnNames: id
+        - sql:
+            dbms: postgresql
+            sql: ALTER TABLE inventory ADD CONSTRAINT ck_inventory_quantity_non_negative CHECK (quantity >= 0)
+        - sql:
+            dbms: postgresql
+            sql: ALTER TABLE inventory ADD CONSTRAINT ck_inventory_reserved_quantity_valid CHECK (reserved_quantity >= 0 AND reserved_quantity <= quantity)
