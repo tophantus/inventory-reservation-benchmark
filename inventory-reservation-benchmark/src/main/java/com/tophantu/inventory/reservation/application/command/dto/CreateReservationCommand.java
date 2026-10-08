@@ -10,6 +10,7 @@ public record CreateReservationCommand(
         @NotNull @Positive Long customerId,
         @NotNull @Positive Long productId,
         @Positive long quantity,
-        @NotNull @Future LocalDateTime expiresAt
+        @NotNull @Future LocalDateTime expiresAt,
+        @NotNull ReservationStrategy strategy
 ) {
 }

@@ -85,6 +85,10 @@ public class InventoryJpaEntity {
         return reservedQuantity;
     }
 
+    public void increaseReservedQuantity(long quantity) {
+        reservedQuantity += quantity;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
