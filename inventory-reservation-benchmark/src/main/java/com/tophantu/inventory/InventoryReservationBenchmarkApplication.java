@@ -1,4 +1,4 @@
-package Inventory.Reservation.Benchmark;
+package com.tophantu.inventory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
