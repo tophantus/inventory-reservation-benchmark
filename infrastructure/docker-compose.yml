@@ -165,6 +165,7 @@ services:
     command: run /scripts/reservation.js
     volumes:
       - ../benchmark/k6:/scripts:ro
+      - ../benchmark/k6/reports:/reports
     depends_on:
       inventory-reservation-benchmark:
         condition: service_healthy

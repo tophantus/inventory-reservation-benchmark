@@ -1,6 +1,9 @@
 # Environment
 .env
 
+# k6 benchmark reports
+benchmark/k6/reports/*.html
+
 # Maven
 backend/target/
 

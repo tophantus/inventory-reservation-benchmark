@@ -1,5 +1,6 @@
 import http from 'k6/http';
 import { check, fail } from 'k6';
+import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/3.0.4/dist/bundle.js';
 
 import { config } from './config.js';
 
@@ -91,4 +92,23 @@ export default function (data) {
       return typeof reservationId === 'number' && reservationId > 0;
     },
   });
+}
+
+export function handleSummary(data) {
+  const now = new Date();
+  const timestamp = [
+    now.getUTCFullYear(),
+    String(now.getUTCMonth() + 1).padStart(2, '0'),
+    String(now.getUTCDate()).padStart(2, '0'),
+  ].join('') + [
+    String(now.getUTCHours()).padStart(2, '0'),
+    String(now.getUTCMinutes()).padStart(2, '0'),
+    String(now.getUTCSeconds()).padStart(2, '0'),
+  ].join('');
+
+  return {
+    [`/reports/reservation-${config.strategy}-${timestamp}.html`]: htmlReport(data, {
+      title: `Reservation benchmark: ${config.strategy}`,
+    }),
+  };
 }
