@@ -4,15 +4,14 @@ const strategies = {
   3: 'POSTGRES_POOL',
 };
 
-// Choose one strategy: 1 = pessimistic lock, 2 = Redis, 3 = PostgreSQL pool.
 const strategyOption = 3;
 
 export const config = {
   baseUrl: 'http://inventory-reservation-benchmark:8080',
   strategy: strategies[strategyOption],
-  customerCount: 100,
-  productQuantity: 100_000,
+  customerCount: 500,
+  productQuantity: 1_000_000,
   reservationQuantity: 1,
-  vus: 100,
-  duration: '30s',
+  vus: 500,
+  duration: '3m',
 };
