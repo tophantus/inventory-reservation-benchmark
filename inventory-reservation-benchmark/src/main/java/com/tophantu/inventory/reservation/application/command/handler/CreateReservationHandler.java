@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Service
 public class CreateReservationHandler implements CreateReservationUseCase {
 
-    private static final long RESERVATION_HOLD_MINUTES = 15;
+    private static final long RESERVATION_HOLD_MINUTES = 5;
 
     private final CreateReservationPort createReservationPort;
     private final ReserveInventoryPort reserveInventoryPort;

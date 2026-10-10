@@ -58,9 +58,10 @@ public class InventoryRepositoryAdapter implements
     }
 
     @Override
-    public void reserve(Long productId, long quantity) {
+    public void reserve(Long productId, long expiredReservedQuantity, long quantity) {
         InventoryJpaEntity inventory = inventoryJpaRepository.findByProductIdForUpdate(productId)
                 .orElseThrow(() -> new BusinessException(InventoryErrorCode.INVENTORY_NOT_FOUND));
+        inventory.decreaseReservedQuantity(expiredReservedQuantity);
         long availableQuantity = inventory.getQuantity() - inventory.getReservedQuantity();
         if (availableQuantity < quantity) {
             throw new BusinessException(InventoryErrorCode.INSUFFICIENT_AVAILABLE_QUANTITY);

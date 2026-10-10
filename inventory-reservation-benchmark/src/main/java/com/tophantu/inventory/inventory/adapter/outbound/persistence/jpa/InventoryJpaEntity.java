@@ -98,6 +98,10 @@ public class InventoryJpaEntity {
         reservedQuantity += quantity;
     }
 
+    public void decreaseReservedQuantity(long quantity) {
+        reservedQuantity -= quantity;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
