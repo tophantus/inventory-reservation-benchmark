@@ -51,7 +51,13 @@ public class ReserveInventoryFromPoolHandler implements ReserveInventoryFromPool
         }
 
         acquireInventoryPoolLockPort.acquire(inventory.id());
+
+        if (tryAllocate(inventory.id(), command.quantity())) {
+            return;
+        }
+
         refillPool(inventory.id(), command.productId(), LocalDateTime.now());
+
         if (!tryAllocate(inventory.id(), command.quantity())) {
             throw new BusinessException(InventoryErrorCode.INSUFFICIENT_AVAILABLE_QUANTITY);
         }
